@@ -13,9 +13,19 @@ public class Tokenizer {
     public Tokenizer() {
         this.tokenInfos = new LinkedList<>();
         this.tokens = new LinkedList<>();
+        this.add("sin|cos|exp|ln|sqrt", 4); // function
+        this.add("min|max", 9); // min, max
+        this.add("[,]", 10); // comma
+        this.add("\\(", 5); // open bracket
+        this.add("\\)", 6); // close bracket
+        this.add("[+-]", 1); // plus or minus
+        this.add("[*/]", 2); // mult or divide
+        this.add("\\^", 3); // raised
+        this.add("[0-9]+([.][0-9]+)?",7); // integer number
+        this.add("[a-zA-Z][a-zA-Z0-9_]*", 8); // variable
     }
 
-    public void add(String regex, int token) {
+    private void add(String regex, int token) {
         tokenInfos.add(new TokenInfo(Pattern.compile("^(" + regex + ")"), token));
     }
 

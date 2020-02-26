@@ -6,6 +6,7 @@ import com.example.parser.expression.ExponentiationExpressionNode;
 import com.example.parser.expression.ExpressionNode;
 import com.example.parser.expression.ExpressionNodeType;
 import com.example.parser.expression.FunctionExpressionNode;
+import com.example.parser.expression.MinMaxExpressionNode;
 import com.example.parser.expression.MultiplicationExpressionNode;
 import com.example.parser.expression.VariableExpressionNode;
 import java.util.LinkedList;
@@ -136,6 +137,34 @@ public class Parser {
 
             nextToken();
             return expression;
+        }
+
+        if (lookahead.token == Token.MINMAX) {
+            // argument -> MINMAX OPEN_BRACKET expression COMMA expression CLOSE_BRACKET
+            String operation = lookahead.sequence;
+            boolean isMax = lookahead.sequence.equals("max");
+
+            nextToken();
+            if (lookahead.token != Token.OPEN_BRACKET) {
+                throw new ParserException("Open brackets expected after " + operation + " but receive " + lookahead.sequence);
+            }
+
+            nextToken();
+            ExpressionNode firstExpression = expression();
+
+            if (lookahead.token != Token.COMMA) {
+                throw new ParserException("Commas expected but receive " + lookahead.sequence);
+            }
+
+            nextToken();
+            ExpressionNode secondExpression = expression();
+
+            if (lookahead.token != Token.CLOSE_BRACKET) {
+                throw new ParserException("Closing brackets expected and " + lookahead.sequence + " found instead");
+            }
+
+            nextToken();
+            return new MinMaxExpressionNode(firstExpression, secondExpression, isMax);
         }
 
         // argument -> value

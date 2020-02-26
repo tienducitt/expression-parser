@@ -10,6 +10,8 @@ public class Token {
     public static final int CLOSE_BRACKET = 6;
     public static final int NUMBER = 7;
     public static final int VARIABLE = 8;
+    public static final int MINMAX = 9;
+    public static final int COMMA = 10;
 
 
     public final int token;
@@ -18,5 +20,13 @@ public class Token {
     public Token(int token, String sequence) {
         this.token = token;
         this.sequence = sequence;
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+            "token=" + token +
+            ", sequence='" + sequence + '\'' +
+            '}';
     }
 }

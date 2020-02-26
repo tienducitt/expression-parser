@@ -6,5 +6,6 @@ public enum  ExpressionNodeType {
      ADDITION_NODE,
      MULTIPLICATION_NODE,
      EXPONENTIATION_NODE,
-     FUNCTION_NODE;
+     FUNCTION_NODE,
+     MINMAX
 }
